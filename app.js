@@ -38,4 +38,22 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+//Please setup local environment variables with proper addresses. NEVER UPLOAD CREDENTIALS IN CODE!
+var connection = mysql.createConnection({
+  host     : process.env.CapstoneAwsSqlAddress,
+  port     : process.env.CapstoneAwsSqlPort,
+  user     : process.env.CapstoneAwsSqlUser,
+  password : process.env.CapstoneAwsSqlPassword
+});
+
+connection.connect(function(err) {
+  if (err) {
+    console.error('Database connection failed: ' + err.stack);
+    return;
+  }
+
+  console.log('Connected to database.');
+});
+
+
 module.exports = app;
