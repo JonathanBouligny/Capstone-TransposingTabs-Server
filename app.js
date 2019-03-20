@@ -47,6 +47,7 @@ const app = express();
     password : process.env.CapstoneAwsSqlPassword
   });
 
+  //connection is established we should be able to export this connection
   connection.connect(function(err) {
     if (err) {
       console.error('Database connection '+ process.env.CapstoneAwsSqlAddress +' failed: ' + err.stack);
