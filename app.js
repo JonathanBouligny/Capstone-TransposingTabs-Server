@@ -57,5 +57,4 @@ const app = express();
     console.log('Connected to database address: ' + process.env.CapstoneAwsSqlAddress);
   });
 
-
 module.exports = app;
