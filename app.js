@@ -4,11 +4,9 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 var bodyParser = require('body-parser');
-var cors=require('cors');
+var cors = require('cors');
 const indexRouter = require('./routes/index');
 const dbRouter = require('./routes/songDBRoutes');
-const mysql = require('mysql');
-const db = require('./db');
 const app = express();
 
   // view engine setup
