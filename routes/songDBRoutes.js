@@ -64,4 +64,13 @@ router.post('/save', function(req, res)
             res.json(req.body);
     });
 });
+
+router.get('/getAll', function(req,res){
+   dbCalls.selectAll(function (err, result) {
+      if(err)
+          res.json(err);
+      else
+          res.json(result);
+   });
+});
 module.exports=router;

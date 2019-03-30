@@ -94,6 +94,11 @@ var dbCalls =
                 "WHERE song_name = ? OR album = ? OR artist = ?";
 
             db.query(sql_search, [search.term, search.term, search.term],callback);
+        },
+        selectAll: function(callback)
+        {
+            var sql_get_all = "SELECT * FROM SongsTable;"
+            db.query(sql_get_all, callback);
         }
     };
 
