@@ -6,17 +6,21 @@ var dbCalls = require('../models/songDBModel');
 
 
 router.get('/tab/:songName/:artist/:album/:songKey', function (req, res, next) {
-    console.log(req.params.songName);
-    dbCalls.getTabs(req.params, function (err, result) {
+        dbCalls.getTabs(req.params, function (err, result) {
         console.log(result);
-        if(result.length == 0)
-            err = "Song does not exist";
-        if(err) {
-            res.status(400);
-            res.json(err);
-        }
-        else
-            res.json(result);
+            if(err)
+                res.json(err);
+            else if(result.length == 0)
+            {
+                err = "Song does not exist";
+                if(err) {
+                    res.status(400);
+                    res.json(err);
+                }
+            }
+
+            else
+                res.json(result[0]);
     });
 });
 router.get('/chords/:songName/:artist/:album/:songKey', function (req, res, next) {
@@ -29,7 +33,10 @@ router.get('/chords/:songName/:artist/:album/:songKey', function (req, res, next
             res.json(err);
         }
         else
-            res.json(result);
+        {
+            res.json(result[0]);
+        }
+
     });
 });
 
