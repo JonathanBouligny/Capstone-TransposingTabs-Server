@@ -6,21 +6,21 @@ var dbCalls = require('../models/songDBModel');
 
 
 router.get('/tab/:songName/:artist/:album/:songKey', function (req, res, next) {
-        dbCalls.getTabs(req.params, function (err, result) {
+    dbCalls.getTabs(req.params, function (err, result) {
         console.log(result);
-            if(err)
+        if(err)
+            res.json(err);
+        else if(result.length == 0)
+        {
+            err = "Song does not exist";
+            if(err) {
+                res.status(400);
                 res.json(err);
-            else if(result.length == 0)
-            {
-                err = "Song does not exist";
-                if(err) {
-                    res.status(400);
-                    res.json(err);
-                }
             }
+        }
 
-            else
-                res.json(result[0]);
+        else
+            res.json(result[0]);
     });
 });
 router.get('/chords/:songName/:artist/:album/:songKey', function (req, res, next) {
@@ -48,10 +48,10 @@ router.get('/songs/:term', function (req, res, next) {
             res.json(err);
         else if(result.length == 0)
         {
-                err = "Song does not exist";
+            err = "Song does not exist";
             if(err) {
-            res.status(400);
-            res.json(err);
+                res.status(400);
+                res.json(err);
             }
         }
 
@@ -73,11 +73,11 @@ router.post('/save', function(req, res)
 });
 
 router.get('/getAll', function(req,res){
-   dbCalls.selectAll(function (err, result) {
-      if(err)
-          res.json(err);
-      else
-          res.json(result);
-   });
+    dbCalls.selectAll(function (err, result) {
+        if(err)
+            res.json(err);
+        else
+            res.json(result);
+    });
 });
-module.exports=router;
+module.exports=router;ports=router;
