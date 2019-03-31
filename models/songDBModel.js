@@ -76,14 +76,14 @@ var dbCalls =
         getTabs: function(songInfo, callback)
         {
             console.log(songInfo);
-            var sql_get_tab = "SELECT Tab FROM SongsTable"+
+            var sql_get_tab = "SELECT id, song_key, Tab FROM SongsTable"+
                 " INNER JOIN TabsTable USING (id)"+
                 " WHERE artist = ? AND album = ? AND song_name = ? AND song_key = ?";
             db.query(sql_get_tab, [songInfo.artist, songInfo.album, songInfo.songName, songInfo.songKey], callback);
         },
         getChords: function(songInfo, callback)
         {
-            var sql_get_chords = "SELECT chords FROM SongsTable"+
+            var sql_get_chords = "SELECT id, song_key, chords FROM SongsTable"+
                 " INNER JOIN ChordsTable USING (id)"+
                 " WHERE artist = ? AND album = ? AND song_name = ? AND song_key = ?";
              db.query(sql_get_chords, [songInfo.artist, songInfo.album, songInfo.songName, songInfo.songKey], callback);
