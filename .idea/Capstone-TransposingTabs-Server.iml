@@ -8,5 +8,11 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="@types/express" level="application" />
+    <orderEntry type="library" name="@types/async" level="application" />
+    <orderEntry type="library" name="@types/body-parser" level="application" />
+    <orderEntry type="library" name="@types/connect" level="application" />
+    <orderEntry type="library" name="@types/cors" level="application" />
+    <orderEntry type="library" name="@types/url-parse" level="application" />
   </component>
 </module>
