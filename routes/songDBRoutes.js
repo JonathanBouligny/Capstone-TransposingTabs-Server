@@ -80,4 +80,13 @@ router.get('/getAll', function(req,res){
             res.json(result);
     });
 });
-module.exports=router;ports=router;
+
+router.post('/delete', function(req,res){
+    dbCalls.deleteSong(req.body, function (err, result) {
+        if(err)
+            res.json(err);
+        else
+            res.json(result);
+    });
+});
+module.exports=router;
