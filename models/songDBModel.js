@@ -8,7 +8,7 @@ function transposeTab(songInfo) {
     var prime_key = songInfo.default_key;
     var pre_key = 0;
     var tar_key = 0;
-    var target_key_arr = [ "A","B","C","D","E","F","G","Ab","Bb","Db","Eb","Gb"];
+    var target_key_arr = [ 'A','B','C','D','E','F','G','Ab','Bb','Db','Eb','Gb','C#','D#','F#','A#','G#'];
     //["A", songInfo.Tab, songInfo.chords],
     var transposed_tabs_arr = [];
 
