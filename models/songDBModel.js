@@ -160,15 +160,15 @@ function transposeTab(songInfo) {
         };
         var strings = ['A', 'E', 'B', 'D', 'G'];
         for (i = 0; i < myarr.length; i++) {
-                if (['A', 'E', 'B', 'D', 'G'].in_array(myarr[i]))
-                    {
-                        if(myarr[i+1] == "|")
-                        {
-                            console.log("in equal \n");
-                            myarr[i] = "<br>" + myarr[i];
-                        }
-
+            if(myarr[i] != '(' && myarr[i] != ')') {
+                if (['A', 'E', 'B', 'D', 'G'].in_array(myarr[i])) {
+                    if (myarr[i + 1] == "|") {
+                        console.log("in equal \n");
+                        myarr[i] = "<br>" + myarr[i];
                     }
+
+                }
+            }
                     // if (['A', 'E', 'B', 'D', 'G'].in_array(myarr[i + 1])) {
                     //
                     //     console.log("in letters");
@@ -247,7 +247,7 @@ var dbCalls =
                             var songKeys = transposeTab(newSongInfo);
 
                             songKeys.forEach(function (song) {
-                                console.log(song + "\n\n\n");
+                                console.log("Song  "+song+"\n\n\n");
                                 db.query(sql_insert_tabs, [id, song[0], song[1]], function (err, results) {
                                     if (err) throw err;
 
