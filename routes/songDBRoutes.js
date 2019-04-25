@@ -59,10 +59,7 @@ router.get('/songs/:term', function (req, res, next) {
             res.json(result);
     });
 });
-router.post('/dummy', function(req,res)
-{
-    console.log(req.body);
-});
+;
 router.post('/save', function(req, res)
 {
     //console.log(req.body);
