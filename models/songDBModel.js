@@ -8,7 +8,7 @@ function transposeTab(songInfo) {
     var prime_key = songInfo.default_key;
     var pre_key = 0;
     var tar_key = 0;
-    var target_key_arr = [ "A","B","C","D","E","F","G","Ab","Bb","Db","Eb","Gb"];
+    var target_key_arr = [ 'A','B','C','D','E','F','G','Ab','Bb','Db','Eb','Gb','C#','D#','F#','A#','G#'];
     //["A", songInfo.Tab, songInfo.chords],
     var transposed_tabs_arr = [];
 
@@ -96,7 +96,7 @@ function transposeTab(songInfo) {
         console.log("key distance is " + key_distance);
 
         var mystr = input_str;
-        console.log("Myster: "+mystr);
+        //console.log("Mystr: "+mystr);
         var myarr = mystr.split("");
         for (i = 0; i < myarr.length; i++) {
             if (myarr[i] in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) {
@@ -107,7 +107,7 @@ function transposeTab(songInfo) {
                             myarr[i + 1] = (myarr[i + 1] - -key_distance) % 10;
                             i += 1;
                         } else if ((myarr[i + 1] - -key_distance) < 10 && (myarr[i + 1] - -key_distance) >= 0) {
-                            print(myarr[i + 1]);
+                            console.log(myarr[i + 1]);
                             myarr[i + 1] = myarr[i + 1] - (-key_distance);
                             i += 1;
                         } else if ((myarr[i + 1] - -key_distance) < 0) {
@@ -118,7 +118,7 @@ function transposeTab(songInfo) {
                             myarr[i + 1] = myarr[i + 1] - (-10) - (-key_distance);
                             i += 1;
                         } else {
-                            print("this wont show");
+                            console.log("this wont show");
                         }
                     } else if (key_distance == 10) {
                         myarr[i] += 1;
@@ -160,15 +160,15 @@ function transposeTab(songInfo) {
         };
         var strings = ['A', 'E', 'B', 'D', 'G'];
         for (i = 0; i < myarr.length; i++) {
-                if (['A', 'E', 'B', 'D', 'G'].in_array(myarr[i]))
-                    {
-                        if(myarr[i+1] == "|")
-                        {
-                            console.log("in equal \n");
-                            myarr[i] = "<br>" + myarr[i];
-                        }
-
+            if(myarr[i] != '(' && myarr[i] != ')') {
+                if (['A', 'E', 'B', 'D', 'G'].in_array(myarr[i])) {
+                    if (myarr[i + 1] == "|") {
+                        console.log("in equal \n");
+                        myarr[i] = "<br>" + myarr[i];
                     }
+
+                }
+            }
                     // if (['A', 'E', 'B', 'D', 'G'].in_array(myarr[i + 1])) {
                     //
                     //     console.log("in letters");
@@ -213,60 +213,59 @@ function transposeTab(songInfo) {
 var dbCalls =
     {
         saveNewSong: function(newSongInfo, callback){
-            console.log("\nin save New Song \n");
-             console.log(newSongInfo);
-            var sql_insert_song = "INSERT INTO SongsTable(id, song_name, album, artist, default_key) " +
-                "VALUES (NULL, ?, ?, ?, ?);";
+            console.log(newSongInfo);
+            if(newSongInfo !={}) {
+                console.log("\nin save New Song \n");
+                console.log(newSongInfo);
+                var sql_insert_song = "INSERT INTO SongsTable(id, song_name, album, artist, default_key) " +
+                    "VALUES (NULL, ?, ?, ?, ?);";
 
-            var sql_get_id = "SELECT LAST_INSERT_ID();";
+                var sql_get_id = "SELECT LAST_INSERT_ID();";
 
-            var sql_insert_tabs = "INSERT INTO TabsTable (id, song_key, Tab) "+
-                "VALUES (?, ?, ?);";
+                var sql_insert_tabs = "INSERT INTO TabsTable (id, song_key, Tab) " +
+                    "VALUES (?, ?, ?);";
 
-            var sql_insert_chords = "INSERT INTO ChordsTable (id, song_key, chords) "+
-                "VALUES (?, ?, ?);";
-            var   sql_get_song_info = "SELECT * FROM SongsTable"+
-                " WHERE artist = ? AND album = ? AND song_name = ?";
-            var dummy_sql = "SELECT * FROM SongsTable";
+                var sql_insert_chords = "INSERT INTO ChordsTable (id, song_key, chords) " +
+                    "VALUES (?, ?, ?);";
+                var sql_get_song_info = "SELECT * FROM SongsTable" +
+                    " WHERE artist = ? AND album = ? AND song_name = ?";
+                var dummy_sql = "SELECT * FROM SongsTable";
 
-            var results;
-            db.query(sql_insert_song, [newSongInfo.songName, newSongInfo.album, newSongInfo.artist, newSongInfo.default_key],
-              function(err, results) {
-                    if(err) throw err;
-                    //console.log(results);
+                var results;
+                db.query(sql_insert_song, [newSongInfo.songName, newSongInfo.album, newSongInfo.artist, newSongInfo.default_key],
+                    function (err, results) {
+                        if (err) throw err;
+                        //console.log(results);
 
-                    db.query(sql_get_id, function(err, rows)
-                    {
-                        var id;
-                        for (var i = 0; i < rows.length; i++) {
-                            var row = rows[i];
-                            id = row["LAST_INSERT_ID()"];
-                        }
-                        console.log("\n ID: " + id);
-                        var songKeys = transposeTab(newSongInfo);
+                        db.query(sql_get_id, function (err, rows) {
+                            var id;
+                            for (var i = 0; i < rows.length; i++) {
+                                var row = rows[i];
+                                id = row["LAST_INSERT_ID()"];
+                            }
+                            console.log("\n ID: " + id);
+                            var songKeys = transposeTab(newSongInfo);
 
-                        songKeys.forEach(function (song) {
-                            console.log(song + "\n\n\n");
-                            db.query(sql_insert_tabs, [id, song[0], song[1]], function(err,results)
-                            {
-                                if(err) throw err;
+                            songKeys.forEach(function (song) {
+                                console.log("Song  "+song+"\n\n\n");
+                                db.query(sql_insert_tabs, [id, song[0], song[1]], function (err, results) {
+                                    if (err) throw err;
+
+                                });
+                                results = db.query(sql_insert_chords, [id, song[0], song[2]], function (err, results) {
+                                    if (err) throw err;
+                                    return;
+                                });
 
                             });
-                            results = db.query(sql_insert_chords, [id, song[0], song[2]], function(err,results)
-                            {
-                                if(err) throw err;
-                                return;
-                            });
-
+                            console.log("out of foreach");
+                            //db.query(dummy_sql, callback);
+                            db.query(sql_get_song_info, [newSongInfo.artist, newSongInfo.album, newSongInfo.songName], callback);
                         });
-                        console.log("out of foreach");
-                      //db.query(dummy_sql, callback);
-                      db.query(sql_get_song_info, [newSongInfo.artist, newSongInfo.album, newSongInfo.songName], callback);
+                        console.log("out of next");
+                        return;
                     });
-                    console.log("out of next");
-                    return;
-                } );
-        },
+            }},
 
         getTabs: function(songInfo, callback)
         {
@@ -294,8 +293,36 @@ var dbCalls =
         {
             var sql_get_all = "SELECT * FROM SongsTable;"
             db.query(sql_get_all, callback);
+        },
+        deleteSong: function(songInfo, callback)
+        {
+            var sql_get_id = "SELECT id FROM SongsTable "+
+                " WHERE artist = ? AND album = ? AND song_name = ?";
+            var sql_del_song = "DELETE FROM SongsTable"+
+                " WHERE id = ?";
+
+            var sql_del_tab = "DELETE From TabsTable WHERE id = ?";
+            var sql_del_chord = "DELETE FROM ChordsTable WHERE id = ?";
+            db.query(sql_get_id, [songInfo.artist, songInfo.album, songInfo.songName], function(err, rows)
+            {
+                if (err) throw err;
+                //console.log(results);{
+                var id;
+                var row = rows[0];
+                console.log(row)
+                id = row["id"];
+
+                    console.log("\n ID: " + id);
+                db.query(sql_del_tab, [id], function(){
+                db.query(sql_del_chord, [id], function(){
+                db.query(sql_del_song, [id], callback);
+                });
+            }
+                );
+
+            });
         }
-    };
+        };
 
 module.exports=dbCalls;
 
