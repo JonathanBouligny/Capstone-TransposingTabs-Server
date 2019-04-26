@@ -7,12 +7,9 @@ function transposeChords(input_chords,prime_key, target_key)
     var arr = input_chords.split("");
     var tmp = transposing_chords(arr,prime_key,target_key).join("")
     var ret = tmp.replace(/ /g, "_");
-    // for (var i = 0; i < tmp.length; i++)
-    // {
-    //     ret+=arr[i];
-    // }
-   // console.log(ret);
-    return ret;
+    var ret2 = ret.replace(/\n/g, "<br>");
+
+    return ret2;
 }
 
 function transposing_chords(input_arr,prime_key, target_key)
