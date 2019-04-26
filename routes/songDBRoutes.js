@@ -59,14 +59,17 @@ router.get('/songs/:term', function (req, res, next) {
             res.json(result);
     });
 });
-
+;
 router.post('/save', function(req, res)
 {
     //console.log(req.body);
     dbCalls.saveNewSong(req.body, function (err, result) {
         console.log("results: " + result);
         if(err)
+        {
+                dbCalls.deleteSong(req.body,function(){res.json(err);})
             res.json(err);
+        }
         else
             res.json(req.body);
     });
