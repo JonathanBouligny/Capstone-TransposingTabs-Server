@@ -4,12 +4,13 @@ var chordsList = ['A',' ',' ','B','C','D','E','F','G'];
 
 function transposeChords(input_chords,prime_key, target_key)
 {
-    var arr = input_chords.split("");
+    var pre_arr = input_chords.replace(/\n/g,"<br>");
+    var arr = pre_arr.split("");
     var tmp = transposing_chords(arr,prime_key,target_key).join("")
-    var ret2 = tmp.replace(/ /g, "_");
-    //var ret2 = ret.replace(/\n/g, "<br>");
+    var ret = tmp.replace(/ /g, "_");
 
-    return ret2;
+
+    return ret;
 }
 
 function transposing_chords(input_arr,prime_key, target_key)
