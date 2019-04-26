@@ -7,12 +7,12 @@ function transposeChords(input_chords,prime_key, target_key)
     var arr = input_chords.split(" ");
     for(var i = 0; i<arr.length; i++)
         console.log(arr[i]);
-    ret = transposeChords(arr,prime_key,target_key)
+    ret = transposing_chords(arr,prime_key,target_key)
 
     return ret.toString();
 }
 
-function transposeChords(input_arr,prime_key, target_key)
+function transposing_chords(input_arr,prime_key, target_key)
 {
     var pre_key = 0;
     var tar_key = 0;
@@ -89,36 +89,36 @@ function transposeChords(input_arr,prime_key, target_key)
         tar_key = 12;}
     else {print("please input a valid key.\n");
     }
-
+    
     var key_distance = tar_key - pre_key;
     var new_key_distance = 0;
     if (Math.abs(key_distance) > 6){
-        if(key_distance>0){
-            new_key_distance = key_distance-12;
-        }
-        else if(key_distance <0){
-            new_key_distance = key_distance -(-12);
-        }
-        else{
-            print("Same key values.");
-        }
+       if(key_distance>0){
+           new_key_distance = key_distance-12;
+       }
+       else if(key_distance <0){
+           new_key_distance = key_distance -(-12);
+       }
+       else{
+           print("Same key values.");    
+           }  
     }
     else{
         if(key_distance>0){
-            new_key_distance = key_distance-12;
-        }
-        else if(key_distance <0){
-            new_key_distance = key_distance -(-12);
-        }
-        else{
-            print("Same key values.");
-        }
+           new_key_distance = key_distance-12;
+       }
+       else if(key_distance <0){
+           new_key_distance = key_distance -(-12);
+       }
+       else{
+           print("Same key values.");    
+           }
     }
-
-
+    
+    
     print(key_distance);
     print(new_key_distance);
-
+    
     for (i=0;i<input_arr.length;i++){
         //C chords:
         if (input_arr[i] == 'C'){
@@ -510,20 +510,22 @@ function transposeChords(input_arr,prime_key, target_key)
         else if(input_arr[i] == 'B+'){
             input_arr[i] = 11.9;}
         else if(input_arr[i] == 'Bsus'){
-                input_arr[i] = 11.95;}
+            input_arr[i] = 11.95;}
     }
-
+    
     var c = 10;
     for (i=0;i<input_arr.length;i++){
-        if(input_arr[i]-(-new_key_distance)<=0 || input_arr[i]-(-new_key_distance) >12){
-            input_arr[i] = (input_arr[i]*c -(-key_distance*c))/c;
-        }
-        else{
-            input_arr[i] = (input_arr[i]*c -(-new_key_distance*c))/c;
+        if(input_arr[i]>0 && input_arr[i]<12){
+            if(input_arr[i]-(-new_key_distance)<=0 || input_arr[i]-(-new_key_distance) >12){
+                input_arr[i] = (input_arr[i]*c -(-key_distance*c))/c;
+            }
+            else{
+                input_arr[i] = (input_arr[i]*c -(-new_key_distance*c))/c;
+            }
         }
     }
-
-
+    
+    
     for (i=0;i<input_arr.length;i++){
         //C chords:
         if (input_arr[i] == 1){
@@ -915,11 +917,11 @@ function transposeChords(input_arr,prime_key, target_key)
         else if(input_arr[i] == 11.9){
             input_arr[i] = 'B+';}
         else if(input_arr[i] == 11.95){
-                input_arr[i] = 'Bsus';}
+            input_arr[i] = 'Bsus';}
     }
-
-
-
+    
+    
+    
     return input_arr;
 
 
