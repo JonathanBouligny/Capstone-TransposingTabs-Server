@@ -5,9 +5,13 @@ var chordsList = ['A',' ',' ','B','C','D','E','F','G'];
 function transposeChords(input_chords,prime_key, target_key)
 {
     var arr = input_chords.split("");
-        
-    ret = transposing_chords(arr,prime_key,target_key).join("")
-
+    var tmp = transposing_chords(arr,prime_key,target_key).join("")
+    var ret = tmp.replace(/ /g, "_");
+    // for (var i = 0; i < tmp.length; i++)
+    // {
+    //     ret+=arr[i];
+    // }
+   // console.log(ret);
     return ret;
 }
 
@@ -1119,6 +1123,7 @@ var dbCalls =
                                     if (err) throw err;
 
                                 });
+                                console.log(song[2]);
                                 results = db.query(sql_insert_chords, [id, song[0], song[2]], function (err, results) {
                                     if (err) throw err;
                                     return;
