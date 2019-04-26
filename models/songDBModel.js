@@ -4,7 +4,7 @@ var chordsList = ['A',' ',' ','B','C','D','E','F','G'];
 
 function transposeChords(input_chords,prime_key, target_key)
 {
-    var pre_arr = input_chords.replace(/\\n/g,"<br>");
+    var pre_arr = JSON.parse(input_chords.replace(/\\n/g,"<br>"));
     var arr = pre_arr.split("");
     var tmp = transposing_chords(arr,prime_key,target_key).join("")
     var ret = tmp.replace(/ /g, "_");
@@ -1121,7 +1121,6 @@ var dbCalls =
                                     if (err) throw err;
 
                                 });
-                                console.log(song[2]);
                                 results = db.query(sql_insert_chords, [id, song[0], song[2]], function (err, results) {
                                     if (err) throw err;
                                     return;
