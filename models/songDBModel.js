@@ -5,11 +5,12 @@ var chordsList = ['A','B','C','D','E','F','G'];
 function transposeChords(input_chords,prime_key, target_key)
 {
     var arr = input_chords.split(" ");
-    for(var i = 0; i<arr.length; i++)
-        console.log(arr[i]);
+        
     ret = transposing_chords(arr,prime_key,target_key)
 
-    return ret.toString();
+    ret = ret.toString().replace(","," ")
+
+    return ret;
 }
 
 function transposing_chords(input_arr,prime_key, target_key)
@@ -50,7 +51,7 @@ function transposing_chords(input_arr,prime_key, target_key)
         pre_key = 11;}
     else if(prime_key == 'B'){
         pre_key = 12;}
-    else {print("please input a valid key.\n");
+    else {console.log("please input a valid key.\n");
     }
 
     if (target_key == 'C'){
@@ -87,7 +88,7 @@ function transposing_chords(input_arr,prime_key, target_key)
         tar_key = 11;}
     else if(target_key == 'B'){
         tar_key = 12;}
-    else {print("please input a valid key.\n");
+    else {console.log("please input a valid key.\n");
     }
     
     var key_distance = tar_key - pre_key;
@@ -100,7 +101,7 @@ function transposing_chords(input_arr,prime_key, target_key)
            new_key_distance = key_distance -(-12);
        }
        else{
-           print("Same key values.");    
+           console.log("Same key values.");    
            }  
     }
     else{
@@ -111,13 +112,13 @@ function transposing_chords(input_arr,prime_key, target_key)
            new_key_distance = key_distance -(-12);
        }
        else{
-           print("Same key values.");    
+           console.log("Same key values.");    
            }
     }
     
     
-    print(key_distance);
-    print(new_key_distance);
+    console.log(key_distance);
+    console.log(new_key_distance);
     
     for (i=0;i<input_arr.length;i++){
         //C chords:
