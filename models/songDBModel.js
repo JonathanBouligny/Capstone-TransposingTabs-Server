@@ -4,13 +4,13 @@ var chordsList = ['A',' ',' ','B','C','D','E','F','G'];
 
 function transposeChords(input_chords,prime_key, target_key)
 {
-    var pre_arr = JSON.parse(input_chords.replace(/\\n/g,"<br>"));
-    var arr = pre_arr.split("");
+    var arr = input_chords.split("");
     var tmp = transposing_chords(arr,prime_key,target_key).join("")
     var ret = tmp.replace(/ /g, "_");
+    var ret2 = JSON.parse(JSON.stringify(ret).replace(/\\n/g,"<br>"));
 
 
-    return ret;
+    return ret2;
 }
 
 function transposing_chords(input_arr,prime_key, target_key)
@@ -1075,7 +1075,7 @@ function transposeTab(songInfo) {
         var transposed_tabs = myarr.join("");
         tab_arr.push(target_key);
         tab_arr.push(transposed_tabs);
-        tab_arr.push(transposeChords(JSON.stringify(chords),prime_key,target_key));
+        tab_arr.push(transposeChords(chords,prime_key,target_key));
         transposed_tabs_arr.push(tab_arr);
     });
 
