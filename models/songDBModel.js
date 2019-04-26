@@ -1073,7 +1073,7 @@ function transposeTab(songInfo) {
         var transposed_tabs = myarr.join("");
         tab_arr.push(target_key);
         tab_arr.push(transposed_tabs);
-        tab_arr.push(transposeChords(chords,target_key,prime_key));
+        tab_arr.push(transposeChords(chords,prime_key,target_key));
         transposed_tabs_arr.push(tab_arr);
     });
 
